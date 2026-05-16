@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Analyst Roadmap — Zero to Job Ready</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d42;
+    --accent: #00d4aa;
+    --accent2: #3b82f6;
+    --accent3: #f59e0b;
+    --accent4: #ef4444;
+    --accent5: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --muted2: #94a3b8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow blobs */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-1 { width: 400px; height: 400px; background: #00d4aa; top: -100px; left: -100px; }
+  .blob-2 { width: 300px; height: 300px; background: #3b82f6; bottom: 20%; right: -100px; }
+  .blob-3 { width: 200px; height: 200px; background: #a855f7; top: 50%; left: 30%; }
+
+  .wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── HERO ── */
+  header {
+    padding: 70px 0 50px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.3);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--accent); }
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted2);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted2);
+    margin-bottom: 10px;
+  }
+  .progress-label strong { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+  .progress-bar-bg {
+    height: 8px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 100px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── NAV TABS ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .nav-inner {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 16px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  .section { display: none; padding: 50px 0 70px; }
+  .section.active { display: block; animation: fadeUp 0.4s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header { margin-bottom: 40px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+  .section-title span { color: var(--accent); }
+  .section-desc {
+    margin-top: 12px;
+    color: var(--muted2);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 620px;
+    font-weight: 300;
+  }
+
+  /* ── PHASE CARDS ── */
+  .phase-grid { display: grid; gap: 20px; }
+
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .phase-card:hover { border-color: rgba(0,212,170,0.3); }
+
+  .phase-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.2);
+    padding: 4px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .phase-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    flex: 1;
+  }
+  .phase-meta {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .phase-chevron {
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .phase-card.open .phase-chevron { transform: rotate(180deg); }
+
+  .phase-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .phase-card.open .phase-body { display: block; }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .topic-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .topic-item:hover { border-color: rgba(0,212,170,0.4); background: rgba(0,212,170,0.05); }
+  .topic-item.done { border-color: rgba(0,212,170,0.5); background: rgba(0,212,170,0.08); }
+  .topic-item.done::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .topic-check {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+  }
+  .topic-item.done .topic-check {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .topic-name {
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .resources-wrap { margin-top: 20px; }
+  .res-label {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .res-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .res-tag {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .res-tag.free { border-color: rgba(0,212,170,0.3); color: var(--accent); background: rgba(0,212,170,0.06); }
+  .res-tag.paid { border-color: rgba(245,158,11,0.3); color: var(--accent3); background: rgba(245,158,11,0.06); }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 18px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .tool-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-3px); }
+  .tool-icon { font-size: 32px; margin-bottom: 10px; }
+  .tool-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .tool-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; }
+  .tool-priority {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+  .tp-must { background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid rgba(239,68,68,0.25); }
+  .tp-important { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+  .tp-good { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+
+  /* ── INTERVIEW SECTION ── */
+  .interview-grid { display: grid; gap: 16px; }
+  .qa-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .qa-q {
+    padding: 18px 22px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .qa-q:hover { background: var(--surface2); }
+  .qa-q-text { flex: 1; line-height: 1.5; }
+  .qa-tag {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+  .tag-sql { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+  .tag-python { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+  .tag-stats { background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.25); }
+  .tag-excel { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+  .tag-hr { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .tag-viz { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .qa-a {
+    display: none;
+    padding: 0 22px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .qa-a-inner {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .qa-a-inner code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: block;
+    margin: 10px 0;
+    font-size: 12px;
+    overflow-x: auto;
+    color: var(--accent);
+    line-height: 1.6;
+  }
+  .qa-card.open .qa-a { display: block; }
+  .qa-chevron { transition: transform 0.3s; font-size: 16px; color: var(--muted); flex-shrink: 0; }
+  .qa-card.open .qa-chevron { transform: rotate(180deg); }
+
+  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .filter-btn {
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted2);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { color: var(--text); border-color: var(--muted); }
+  .filter-btn.active { background: rgba(0,212,170,0.1); color: var(--accent); border-color: rgba(0,212,170,0.4); }
+
+  /* ── PORTFOLIO SECTION ── */
+  .project-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .proj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .proj-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .proj-card.c1::before { background: linear-gradient(90deg, #00d4aa, #3b82f6); }
+  .proj-card.c2::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+  .proj-card.c3::before { background: linear-gradient(90deg, #a855f7, #3b82f6); }
+  .proj-card.c4::before { background: linear-gradient(90deg, #10b981, #00d4aa); }
+  .proj-card.c5::before { background: linear-gradient(90deg, #f43f5e, #a855f7); }
+  .proj-card:hover { border-color: rgba(0,212,170,0.3); transform: translateY(-4px); }
+  .proj-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .proj-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+  .proj-desc { font-size: 13px; color: var(--muted2); line-height: 1.6; margin-bottom: 16px; font-weight: 300; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj-tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .proj-diff {
+    display: inline-block;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .diff-beg { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+  .diff-int { background: rgba(245,158,11,0.1); color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+  .diff-adv { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+
+  /* ── JOB APPLICATION SECTION ── */
+  .apply-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media(max-width:640px){ .apply-grid { grid-template-columns: 1fr; } }
+  .apply-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .apply-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .apply-card-title span { font-size: 22px; }
+  .apply-list { list-style: none; }
+  .apply-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .apply-list li:last-child { border-bottom: none; }
+  .apply-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 28px; }
+  .platform-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.2s;
+  }
+  .platform-card:hover { border-color: rgba(59,130,246,0.4); }
+  .platform-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .platform-type { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--accent); margin-bottom: 8px; }
+  .platform-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent5));
+  }
+  .tl-item { position: relative; padding: 0 0 32px 24px; }
+  .tl-dot {
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(0,212,170,0.2);
+  }
+  .tl-month {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .tl-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 10px;
+  }
+  .tl-items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tl-tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── SALARY SECTION ── */
+  .salary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .salary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .salary-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .salary-exp { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-bottom: 14px; }
+  .salary-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .salary-unit { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── GENERAL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
+
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  .highlight-box {
+    background: rgba(0,212,170,0.06);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+  .highlight-box strong { color: var(--accent); }
+
+  .big-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  /* Mobile */
+  @media(max-width:640px){
+    .topics-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrapper">
+  <header>
+    <div class="badge">// Data Analyst Career Roadmap</div>
+    <h1>Zero to <span>Job-Ready</span><br>Data Analyst</h1>
+    <p class="subtitle">A complete, structured guide — skills, tools, projects, interview prep & job application strategy. Track your progress as you go.</p>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Your Progress</span>
+        <strong id="progress-pct">0%</strong>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="showSection('roadmap', this)">🗺 Roadmap</button>
+    <button class="nav-tab" onclick="showSection('tools', this)">🛠 Tools</button>
+    <button class="nav-tab" onclick="showSection('portfolio', this)">📂 Projects</button>
+    <button class="nav-tab" onclick="showSection('interview', this)">💬 Interview</button>
+    <button class="nav-tab" onclick="showSection('apply', this)">🚀 Apply</button>
+    <button class="nav-tab" onclick="showSection('timeline', this)">📅 Timeline</button>
+    <button class="nav-tab" onclick="showSection('salary', this)">💰 Salary</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     ROADMAP SECTION
+════════════════════════════════════════════ -->
+<div class="wrapper">
+<section id="sec-roadmap" class="section active">
+  <div class="section-header">
+    <div class="section-label">// Phase-by-Phase Learning</div>
+    <h2 class="section-title">The Complete <span>Learning Roadmap</span></h2>
+    <p class="section-desc">6 phases covering everything from fundamentals to advanced skills. Click each phase to expand and track your topics.</p>
+  </div>
+
+  <div class="highlight-box">
+    <strong>For you, Yash:</strong> You already have Excel (pivot tables, Power Query, macros) and some Python knowledge from your AI app projects. Start from Phase 2 or 3 and fast-track to Phase 5–6 for your June internship target.
+  </div>
+
+  <div class="phase-grid" id="phase-grid">
+
+    <!-- PHASE 1 -->
+    <div class="phase-card" id="ph1">
+      <div class="phase-head" onclick="togglePhase('ph1')">
+        <span class="phase-num">PHASE 01</span>
+        <span class="phase-title">Foundations — Math, Stats & Excel</span>
+        <span class="phase-meta">3–4 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_1"><div class="topic-check"></div><span class="topic-name">Descriptive Statistics (Mean, Median, Mode, Std Dev)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_2"><div class="topic-check"></div><span class="topic-name">Probability Basics</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_3"><div class="topic-check"></div><span class="topic-name">Normal Distribution & Bell Curve</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_4"><div class="topic-check"></div><span class="topic-name">Hypothesis Testing (t-test, chi-square)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_5"><div class="topic-check"></div><span class="topic-name">Correlation vs Causation</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_6"><div class="topic-check"></div><span class="topic-name">Excel: VLOOKUP, HLOOKUP, INDEX-MATCH</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_7"><div class="topic-check"></div><span class="topic-name">Pivot Tables & Pivot Charts</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_8"><div class="topic-check"></div><span class="topic-name">Power Query for Data Cleaning</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_9"><div class="topic-check"></div><span class="topic-name">Excel Dashboards</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t1_10"><div class="topic-check"></div><span class="topic-name">Conditional Formatting & Data Validation</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">Khan Academy Stats (Free)</span>
+            <span class="res-tag free">Excel: Chandoo.org (Free)</span>
+            <span class="res-tag free">StatQuest YouTube (Free)</span>
+            <span class="res-tag paid">Udemy: Excel A-Z (~₹499)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-card" id="ph2">
+      <div class="phase-head" onclick="togglePhase('ph2')">
+        <span class="phase-num">PHASE 02</span>
+        <span class="phase-title">SQL — The Core Language of Data</span>
+        <span class="phase-meta">3–4 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_1"><div class="topic-check"></div><span class="topic-name">SELECT, WHERE, ORDER BY, LIMIT</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_2"><div class="topic-check"></div><span class="topic-name">GROUP BY, HAVING, aggregate functions</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_3"><div class="topic-check"></div><span class="topic-name">INNER, LEFT, RIGHT, FULL JOINs</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_4"><div class="topic-check"></div><span class="topic-name">Subqueries & CTEs (WITH clause)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_5"><div class="topic-check"></div><span class="topic-name">Window Functions (RANK, ROW_NUMBER, LAG, LEAD)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_6"><div class="topic-check"></div><span class="topic-name">String Functions (CONCAT, LIKE, TRIM)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_7"><div class="topic-check"></div><span class="topic-name">Date & Time Functions</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_8"><div class="topic-check"></div><span class="topic-name">NULL handling (IS NULL, COALESCE)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_9"><div class="topic-check"></div><span class="topic-name">CASE WHEN statements</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t2_10"><div class="topic-check"></div><span class="topic-name">Query Optimization basics</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">SQLZoo (Free, Interactive)</span>
+            <span class="res-tag free">Mode SQL Tutorial (Free)</span>
+            <span class="res-tag free">LeetCode SQL Problems (Free)</span>
+            <span class="res-tag free">W3Schools SQL (Free)</span>
+            <span class="res-tag paid">Udemy: The Complete SQL Bootcamp (~₹499)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-card" id="ph3">
+      <div class="phase-head" onclick="togglePhase('ph3')">
+        <span class="phase-num">PHASE 03</span>
+        <span class="phase-title">Python for Data Analysis</span>
+        <span class="phase-meta">4–5 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_1"><div class="topic-check"></div><span class="topic-name">Python Basics (lists, dicts, loops, functions)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_2"><div class="topic-check"></div><span class="topic-name">NumPy: arrays and operations</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_3"><div class="topic-check"></div><span class="topic-name">Pandas: DataFrames, Series</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_4"><div class="topic-check"></div><span class="topic-name">Pandas: groupby, merge, pivot_table</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_5"><div class="topic-check"></div><span class="topic-name">Data Cleaning: missing values, duplicates, dtypes</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_6"><div class="topic-check"></div><span class="topic-name">Matplotlib: line, bar, scatter, histogram</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_7"><div class="topic-check"></div><span class="topic-name">Seaborn: heatmaps, pairplots, boxplots</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_8"><div class="topic-check"></div><span class="topic-name">Jupyter Notebooks workflow</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_9"><div class="topic-check"></div><span class="topic-name">EDA (Exploratory Data Analysis)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t3_10"><div class="topic-check"></div><span class="topic-name">Reading CSV, JSON, Excel with Pandas</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">Kaggle Learn Python (Free)</span>
+            <span class="res-tag free">Kaggle Learn Pandas (Free)</span>
+            <span class="res-tag free">Real Python (Free articles)</span>
+            <span class="res-tag paid">Udemy: Python Bootcamp (~₹499)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-card" id="ph4">
+      <div class="phase-head" onclick="togglePhase('ph4')">
+        <span class="phase-num">PHASE 04</span>
+        <span class="phase-title">Data Visualization & Storytelling</span>
+        <span class="phase-meta">2–3 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_1"><div class="topic-check"></div><span class="topic-name">Tableau: connecting data sources</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_2"><div class="topic-check"></div><span class="topic-name">Tableau: calculated fields, filters, parameters</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_3"><div class="topic-check"></div><span class="topic-name">Tableau: building dashboards</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_4"><div class="topic-check"></div><span class="topic-name">Power BI: data model, relationships</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_5"><div class="topic-check"></div><span class="topic-name">Power BI: DAX basics (SUM, CALCULATE, FILTER)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_6"><div class="topic-check"></div><span class="topic-name">Power BI: interactive reports</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_7"><div class="topic-check"></div><span class="topic-name">Choosing the right chart type</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_8"><div class="topic-check"></div><span class="topic-name">Data storytelling principles</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_9"><div class="topic-check"></div><span class="topic-name">Color theory & visual hierarchy</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t4_10"><div class="topic-check"></div><span class="topic-name">Google Looker Studio (free alternative)</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">Tableau Public (Free)</span>
+            <span class="res-tag free">Power BI Desktop (Free)</span>
+            <span class="res-tag free">Tableau's free training videos</span>
+            <span class="res-tag free">Guy in a Cube (YouTube - Free)</span>
+            <span class="res-tag paid">Udemy: Tableau A-Z (~₹499)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase-card" id="ph5">
+      <div class="phase-head" onclick="togglePhase('ph5')">
+        <span class="phase-num">PHASE 05</span>
+        <span class="phase-title">Business Analytics & Domain Knowledge</span>
+        <span class="phase-meta">2–3 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_1"><div class="topic-check"></div><span class="topic-name">KPIs and Business Metrics</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_2"><div class="topic-check"></div><span class="topic-name">Funnel Analysis</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_3"><div class="topic-check"></div><span class="topic-name">Cohort Analysis</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_4"><div class="topic-check"></div><span class="topic-name">A/B Testing concepts</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_5"><div class="topic-check"></div><span class="topic-name">Customer Segmentation (RFM)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_6"><div class="topic-check"></div><span class="topic-name">Revenue analysis & forecasting</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_7"><div class="topic-check"></div><span class="topic-name">Google Analytics basics</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_8"><div class="topic-check"></div><span class="topic-name">Linear Regression (interpret & use)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_9"><div class="topic-check"></div><span class="topic-name">Problem framing & stakeholder communication</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t5_10"><div class="topic-check"></div><span class="topic-name">Writing analysis reports for non-technical audience</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">Google Analytics Academy (Free)</span>
+            <span class="res-tag free">Towards Data Science (Medium - Free)</span>
+            <span class="res-tag free">Coursera: Business Analytics (audit free)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase-card" id="ph6">
+      <div class="phase-head" onclick="togglePhase('ph6')">
+        <span class="phase-num">PHASE 06</span>
+        <span class="phase-title">Advanced Skills & Job-Ready Polish</span>
+        <span class="phase-meta">2 Weeks</span>
+        <span class="phase-chevron">▾</span>
+      </div>
+      <div class="phase-body">
+        <div class="topics-grid">
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_1"><div class="topic-check"></div><span class="topic-name">Git & GitHub basics (version control)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_2"><div class="topic-check"></div><span class="topic-name">Uploading projects to GitHub</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_3"><div class="topic-check"></div><span class="topic-name">Kaggle competitions (EDA notebooks)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_4"><div class="topic-check"></div><span class="topic-name">Building a portfolio on GitHub/Notion</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_5"><div class="topic-check"></div><span class="topic-name">Optimizing LinkedIn for Data Analyst roles</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_6"><div class="topic-check"></div><span class="topic-name">Resume tailoring for JD keywords</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_7"><div class="topic-check"></div><span class="topic-name">Mock interviews (LeetCode, Pramp)</span></div>
+          <div class="topic-item" onclick="toggleTopic(this)" data-id="t6_8"><div class="topic-check"></div><span class="topic-name">Case study practice</span></div>
+        </div>
+        <div class="resources-wrap">
+          <div class="res-label">// Resources</div>
+          <div class="res-list">
+            <span class="res-tag free">GitHub (Free)</span>
+            <span class="res-tag free">Kaggle (Free)</span>
+            <span class="res-tag free">Pramp mock interviews (Free)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TOOLS SECTION
+════════════════════════════════════════════ -->
+<section id="sec-tools" class="section">
+  <div class="section-header">
+    <div class="section-label">// Tech Stack</div>
+    <h2 class="section-title">Tools Every <span>Data Analyst</span> Must Know</h2>
+    <p class="section-desc">Master these tools and you're hireable at 90% of companies.</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">Microsoft Excel</div><div class="tool-desc">Data cleaning, pivot tables, dashboards, Power Query, macros</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">🗄️</div><div class="tool-name">SQL</div><div class="tool-desc">Querying databases — the #1 skill in every DA job posting</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">🐍</div><div class="tool-name">Python</div><div class="tool-desc">Pandas, NumPy, Matplotlib, Seaborn for analysis & viz</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">📈</div><div class="tool-name">Power BI</div><div class="tool-desc">Microsoft's BI tool — huge in Indian companies & MNCs</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">🔵</div><div class="tool-name">Tableau</div><div class="tool-desc">Industry-leading visualization tool, preferred in startups</div><span class="tool-priority tp-important">IMPORTANT</span></div>
+    <div class="tool-card"><div class="tool-icon">📓</div><div class="tool-name">Jupyter Notebook</div><div class="tool-desc">Standard environment for Python data analysis</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">📂</div><div class="tool-name">Google Sheets</div><div class="tool-desc">Cloud Excel — used heavily in startups & SMEs</div><span class="tool-priority tp-important">IMPORTANT</span></div>
+    <div class="tool-card"><div class="tool-icon">🐙</div><div class="tool-name">GitHub</div><div class="tool-desc">Portfolio hosting, version control, shows professionalism</div><span class="tool-priority tp-important">IMPORTANT</span></div>
+    <div class="tool-card"><div class="tool-icon">🔍</div><div class="tool-name">Google Analytics</div><div class="tool-desc">Web analytics — required for marketing analytics roles</div><span class="tool-priority tp-good">GOOD TO HAVE</span></div>
+    <div class="tool-card"><div class="tool-icon">☁️</div><div class="tool-name">Google Looker Studio</div><div class="tool-desc">Free BI dashboards, great for beginners & portfolio projects</div><span class="tool-priority tp-good">GOOD TO HAVE</span></div>
+    <div class="tool-card"><div class="tool-icon">🗃️</div><div class="tool-name">MySQL / PostgreSQL</div><div class="tool-desc">Practice SQL on real database engines</div><span class="tool-priority tp-must">MUST KNOW</span></div>
+    <div class="tool-card"><div class="tool-icon">🤖</div><div class="tool-name">ChatGPT / Claude</div><div class="tool-desc">AI-assisted analysis, formula help, writing insights — modern workflow</div><span class="tool-priority tp-good">GOOD TO HAVE</span></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     PORTFOLIO PROJECTS SECTION
+════════════════════════════════════════════ -->
+<section id="sec-portfolio" class="section">
+  <div class="section-header">
+    <div class="section-label">// Build Your Portfolio</div>
+    <h2 class="section-title">5 Projects That Get <span>You Hired</span></h2>
+    <p class="section-desc">Do all 5 and upload to GitHub + Kaggle. This is your proof of work — more valuable than certificates alone.</p>
+  </div>
+  <div class="project-cards">
+
+    <div class="proj-card c1">
+      <div class="proj-num">PROJECT 01</div>
+      <span class="proj-diff diff-beg">Beginner</span>
+      <div class="proj-title">Sales Performance Dashboard</div>
+      <div class="proj-desc">Build an Excel/Power BI dashboard on a retail sales dataset. Show monthly trends, top products, regional performance. Add KPIs and slicers.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Excel</span>
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">KPIs</span>
+      </div>
+    </div>
+
+    <div class="proj-card c2">
+      <div class="proj-num">PROJECT 02</div>
+      <span class="proj-diff diff-beg">Beginner</span>
+      <div class="proj-title">COVID-19 / IPL Data Analysis</div>
+      <div class="proj-desc">Use Python (Pandas + Seaborn) on a Kaggle dataset. Perform full EDA, find trends, visualize insights. Write a Jupyter notebook with commentary.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Pandas</span>
+        <span class="proj-tag">Seaborn</span>
+        <span class="proj-tag">EDA</span>
+      </div>
+    </div>
+
+    <div class="proj-card c3">
+      <div class="proj-num">PROJECT 03</div>
+      <span class="proj-diff diff-int">Intermediate</span>
+      <div class="proj-title">SQL Business Intelligence Analysis</div>
+      <div class="proj-desc">Use a public database (e.g. Northwind, Superstore). Write 10+ SQL queries answering business questions: top customers, revenue trends, churn analysis.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">SQL</span>
+        <span class="proj-tag">MySQL</span>
+        <span class="proj-tag">Business Logic</span>
+      </div>
+    </div>
+
+    <div class="proj-card c4">
+      <div class="proj-num">PROJECT 04</div>
+      <span class="proj-diff diff-int">Intermediate</span>
+      <div class="proj-title">Energy Consumption Analytics (Your Domain!)</div>
+      <div class="proj-desc">Leverage your IIoT/Hitachi background! Analyze energy data with Python — anomaly detection, time-series plotting, peak demand analysis. Unique edge over other candidates.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">IIoT Domain</span>
+        <span class="proj-tag">Time Series</span>
+        <span class="proj-tag">Unique</span>
+      </div>
+    </div>
+
+    <div class="proj-card c5">
+      <div class="proj-num">PROJECT 05</div>
+      <span class="proj-diff diff-adv">Advanced</span>
+      <div class="proj-title">End-to-End Business Case Study</div>
+      <div class="proj-desc">Pick a business problem (e.g. e-commerce churn, marketing ROI). Collect data, clean it, analyze with SQL+Python, build a Tableau dashboard, write a 1-page insight report.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">SQL</span>
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Tableau</span>
+        <span class="proj-tag">Report Writing</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="divider"></div>
+  <div class="highlight-box">
+    <strong>Pro Tip:</strong> For each project, write a clear README on GitHub: problem statement, approach, key findings, and what tools you used. Recruiters skim these in 30 seconds.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     INTERVIEW SECTION
+════════════════════════════════════════════ -->
+<section id="sec-interview" class="section">
+  <div class="section-header">
+    <div class="section-label">// Interview Preparation</div>
+    <h2 class="section-title">Top Interview <span>Q&A</span> Bank</h2>
+    <p class="section-desc">35+ real interview questions across SQL, Python, Stats, Excel, Viz & HR. Click to reveal model answers.</p>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterQA('all', this)">All</button>
+    <button class="filter-btn" onclick="filterQA('sql', this)">SQL</button>
+    <button class="filter-btn" onclick="filterQA('python', this)">Python</button>
+    <button class="filter-btn" onclick="filterQA('stats', this)">Statistics</button>
+    <button class="filter-btn" onclick="filterQA('excel', this)">Excel</button>
+    <button class="filter-btn" onclick="filterQA('viz', this)">Visualization</button>
+    <button class="filter-btn" onclick="filterQA('hr', this)">HR / Behavioral</button>
+  </div>
+
+  <div class="interview-grid" id="qa-grid">
+
+    <!-- SQL Questions -->
+    <div class="qa-card" data-cat="sql"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What is the difference between WHERE and HAVING?</span><span class="qa-tag tag-sql">SQL</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">WHERE filters rows <em>before</em> grouping; HAVING filters groups <em>after</em> GROUP BY. You can use WHERE on individual row columns, but for aggregate conditions (like SUM &gt; 1000), you must use HAVING.<code>SELECT dept, SUM(salary) as total
+FROM employees
+WHERE status = 'active'
+GROUP BY dept
+HAVING SUM(salary) > 500000;</code></div></div></div>
+
+    <div class="qa-card" data-cat="sql"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Explain the different types of JOINs with examples.</span><span class="qa-tag tag-sql">SQL</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">INNER JOIN: returns rows where match exists in both tables. LEFT JOIN: all rows from left + matching rows from right (NULLs for no match). RIGHT JOIN: opposite of LEFT. FULL OUTER JOIN: all rows from both, NULLs where no match.<code>-- Get all customers even if they have no orders
+SELECT c.name, o.order_id
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id;</code></div></div></div>
+
+    <div class="qa-card" data-cat="sql"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What are Window Functions? Give an example.</span><span class="qa-tag tag-sql">SQL</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Window functions perform calculations across rows related to the current row without collapsing them. Unlike GROUP BY, each row retains its identity. Common functions: RANK(), ROW_NUMBER(), LAG(), LEAD(), SUM() OVER().<code>SELECT name, salary, 
+  RANK() OVER (PARTITION BY dept ORDER BY salary DESC) as rank_in_dept
+FROM employees;</code></div></div></div>
+
+    <div class="qa-card" data-cat="sql"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">How do you find duplicate records in a table?</span><span class="qa-tag tag-sql">SQL</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Use GROUP BY on the columns you're checking for duplicates, then filter with HAVING COUNT(*) &gt; 1.<code>SELECT email, COUNT(*) as cnt
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;</code></div></div></div>
+
+    <div class="qa-card" data-cat="sql"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Write a query to find the second highest salary.</span><span class="qa-tag tag-sql">SQL</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Two approaches: subquery or LIMIT+OFFSET.<code>-- Method 1: Subquery
+SELECT MAX(salary) FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+-- Method 2: LIMIT
+SELECT DISTINCT salary FROM employees
+ORDER BY salary DESC LIMIT 1 OFFSET 1;</code></div></div></div>
+
+    <!-- Python Questions -->
+    <div class="qa-card" data-cat="python"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">How do you handle missing values in Pandas?</span><span class="qa-tag tag-python">Python</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">First detect with df.isnull().sum(). Then decide strategy: drop rows/columns with dropna(), fill with a constant or statistical value using fillna(), or use interpolation for time-series data.<code>df.isnull().sum()           # detect
+df.dropna(inplace=True)     # drop rows
+df['col'].fillna(df['col'].mean(), inplace=True)  # fill mean
+df['col'].fillna(method='ffill', inplace=True)    # forward fill</code></div></div></div>
+
+    <div class="qa-card" data-cat="python"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What is the difference between loc and iloc in Pandas?</span><span class="qa-tag tag-python">Python</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">loc uses label-based indexing (row labels, column names). iloc uses integer position-based indexing (0, 1, 2... positions). loc is inclusive on both ends; iloc is exclusive on the end like Python slicing.<code>df.loc[0:5, 'salary']        # rows 0-5 by label, column by name
+df.iloc[0:5, 2]              # rows 0-4 by position, 3rd column</code></div></div></div>
+
+    <div class="qa-card" data-cat="python"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">How do you perform groupby and aggregation in Pandas?</span><span class="qa-tag tag-python">Python</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">groupby() splits data into groups, then you apply an aggregation function. You can apply multiple aggregations using .agg().<code>df.groupby('department')['salary'].mean()
+
+df.groupby('dept').agg({
+    'salary': ['mean', 'max'],
+    'employees': 'count'
+})</code></div></div></div>
+
+    <!-- Stats Questions -->
+    <div class="qa-card" data-cat="stats"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What is the difference between mean, median, and mode? When to use each?</span><span class="qa-tag tag-stats">Statistics</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Mean: arithmetic average — sensitive to outliers. Use for normally distributed data. Median: middle value when sorted — robust to outliers. Use for skewed data like income or house prices. Mode: most frequent value — useful for categorical data.<br><br>Example: Salary data with one CEO earning ₹1Cr — median gives better "typical" salary than mean which gets pulled up by the outlier.</div></div></div>
+
+    <div class="qa-card" data-cat="stats"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Explain correlation vs causation with an example.</span><span class="qa-tag tag-stats">Statistics</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Correlation means two variables move together. Causation means one directly causes the other. Correlation ≠ causation. Classic example: Ice cream sales and drowning deaths are correlated (both peak in summer) — but ice cream doesn't cause drowning. The hidden cause is summer/heat. In data analysis, always think about confounding variables before claiming causation.</div></div></div>
+
+    <div class="qa-card" data-cat="stats"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What is a p-value? How do you interpret it?</span><span class="qa-tag tag-stats">Statistics</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">A p-value is the probability of observing your data (or more extreme) if the null hypothesis is true. Typically we use α = 0.05 as threshold. p &lt; 0.05: reject null hypothesis, result is statistically significant. p &gt; 0.05: fail to reject null hypothesis. Important: p-value does NOT measure effect size or practical significance — a tiny useless difference can be statistically significant with a huge sample.</div></div></div>
+
+    <!-- Excel Questions -->
+    <div class="qa-card" data-cat="excel"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">What is the difference between VLOOKUP and INDEX-MATCH?</span><span class="qa-tag tag-excel">Excel</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">VLOOKUP looks in the first column only and returns data to the right — breaks if you insert columns. INDEX-MATCH is more flexible: INDEX returns value at a position, MATCH finds the position. INDEX-MATCH can look left, is faster on large data, and doesn't break when columns are inserted.<code>=VLOOKUP(A2, B:D, 2, 0)       -- looks up A2 in column B
+
+=INDEX(C:C, MATCH(A2, B:B, 0)) -- equivalent, more robust</code></div></div></div>
+
+    <div class="qa-card" data-cat="excel"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">How do you remove duplicates and clean data in Excel?</span><span class="qa-tag tag-excel">Excel</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Remove duplicates: Data tab → Remove Duplicates → select columns. Clean text: TRIM() removes extra spaces, PROPER() fixes capitalization, CLEAN() removes non-printable characters. For standardization: use Find & Replace, Flash Fill, or Power Query for bulk transformations. Power Query is the professional approach for repeatable cleaning.</div></div></div>
+
+    <!-- Visualization Questions -->
+    <div class="qa-card" data-cat="viz"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">When would you use a bar chart vs a line chart?</span><span class="qa-tag tag-viz">Visualization</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Bar chart: for comparing discrete categories (e.g. sales by product, revenue by region). Good when order doesn't matter. Line chart: for showing trends over continuous time (e.g. monthly revenue, stock price over years). The connected line implies continuity. Never use a line chart for unrelated categories — it implies a relationship that doesn't exist.</div></div></div>
+
+    <div class="qa-card" data-cat="viz"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">How do you make dashboards that non-technical stakeholders can understand?</span><span class="qa-tag tag-viz">Visualization</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">1) Lead with KPIs at the top (headline numbers). 2) Use clear, plain-English titles that state the insight, not just the chart name. 3) Limit to 5–6 charts max per dashboard. 4) Use consistent colors — one color for one category throughout. 5) Add context: targets, previous period comparisons. 6) Avoid 3D charts, pie charts with 5+ slices. 7) Always answer "So what?" — what action should this drive?</div></div></div>
+
+    <!-- HR Questions -->
+    <div class="qa-card" data-cat="hr"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Tell me about yourself (for a fresher DA role).</span><span class="qa-tag tag-hr">HR</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Use the Present-Past-Future formula: "I'm a final-year Electrical Engineering student from Nagpur with strong data skills. I've completed training with Hitachi India on IIoT energy monitoring systems, giving me hands-on experience with real industrial data. I built AI-powered web applications using APIs and have advanced Excel skills including pivot tables and Power Query. I'm passionate about turning data into decisions, and I'm looking for a Data/Business Analytics internship where I can apply these skills to real business problems."</div></div></div>
+
+    <div class="qa-card" data-cat="hr"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Why do you want to move from Electrical Engineering to Data Analytics?</span><span class="qa-tag tag-hr">HR</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Frame it as a natural evolution, not a pivot: "My IIoT project at Hitachi showed me that the real value isn't just in building systems — it's in analyzing the data they generate to drive efficiency decisions. I worked with energy monitoring data and realized I wanted to go deeper into analytics. My engineering background actually gives me an advantage — I understand the domain context behind industrial data that a pure CS/IT candidate wouldn't have."</div></div></div>
+
+    <div class="qa-card" data-cat="hr"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Describe a time you solved a problem using data.</span><span class="qa-tag tag-hr">HR</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Use STAR method (Situation, Task, Action, Result). Example: "During my IIoT project at Hitachi (Situation), we needed to understand energy consumption patterns (Task). I collected RS-485 Modbus data, analyzed it in Excel with pivot tables and Power Query (Action), and identified that peak consumption occurred during shift transitions — a 15% efficiency opportunity (Result)." — Tailor to your actual experiences with real numbers when possible.</div></div></div>
+
+    <div class="qa-card" data-cat="hr"><div class="qa-q" onclick="toggleQA(this)"><span class="qa-q-text">Where do you see yourself in 3 years?</span><span class="qa-tag tag-hr">HR</span><span class="qa-chevron">▾</span></div><div class="qa-a"><div class="qa-a-inner">Be honest but ambitious: "In 3 years, I see myself as a skilled Data Analyst who has worked across multiple business domains — ideally growing toward a Senior Analyst or Business Intelligence role. I want to have mastered SQL, Python, and BI tools in a real production environment, and I'm interested in eventually combining my engineering domain knowledge with advanced analytics like ML-based forecasting."</div></div></div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     JOB APPLICATION SECTION
+════════════════════════════════════════════ -->
+<section id="sec-apply" class="section">
+  <div class="section-header">
+    <div class="section-label">// Job Hunt Strategy</div>
+    <h2 class="section-title">How to <span>Apply & Get Hired</span></h2>
+    <p class="section-desc">A systematic approach to finding, applying, and following up on Data Analyst roles.</p>
+  </div>
+
+  <div class="apply-grid">
+    <div class="apply-card">
+      <div class="apply-card-title"><span>📝</span> Resume Tips</div>
+      <ul class="apply-list">
+        <li>Lead with a 2-line Summary: "Data Analyst skilled in SQL, Python, Excel & Power BI with experience in IIoT energy data"</li>
+        <li>Quantify everything: "Analyzed 50K+ rows of sensor data" not "worked with data"</li>
+        <li>Match keywords from the Job Description (ATS systems scan for them)</li>
+        <li>Skills section: SQL, Python, Excel, Power BI, Tableau, Statistics — list what you know</li>
+        <li>Projects section is more important than education for freshers</li>
+        <li>Keep to 1 page. Use Jake's Resume template (LaTeX) or Canva's ATS-friendly template</li>
+        <li>Add GitHub profile URL and LinkedIn URL in the header</li>
+      </ul>
+    </div>
+    <div class="apply-card">
+      <div class="apply-card-title"><span>💼</span> LinkedIn Optimization</div>
+      <ul class="apply-list">
+        <li>Headline: "Aspiring Data Analyst | SQL • Python • Power BI | B.E. Electrical Engineering"</li>
+        <li>Add "Open to Work" — set it to Data Analyst, Business Analyst, Analytics Intern</li>
+        <li>Feature your best project or GitHub in the Featured section</li>
+        <li>Add all certifications: Excel, Hitachi IIoT training, any Kaggle/Coursera certificates</li>
+        <li>Post about your projects — 1 post per week builds visibility</li>
+        <li>Connect with 50+ Data Analysts in India — engage with their posts</li>
+        <li>Message recruiters directly with a short personalized note (1–2 lines)</li>
+      </ul>
+    </div>
+    <div class="apply-card">
+      <div class="apply-card-title"><span>📧</span> Cold Outreach Template</div>
+      <ul class="apply-list">
+        <li>Subject: "Data Analyst Intern — [Your Name], B.E. EE, Nagpur"</li>
+        <li>Line 1: One genuine compliment about their company or work</li>
+        <li>Line 2: Who you are + 1–2 relevant skills/projects (very brief)</li>
+        <li>Line 3: Clear ask — "I'd love to contribute as a data analytics intern for June"</li>
+        <li>Attach your resume + GitHub link</li>
+        <li>Follow up in 5–7 days if no reply</li>
+        <li>Target HR + the Analytics team lead — message both on LinkedIn</li>
+      </ul>
+    </div>
+    <div class="apply-card">
+      <div class="apply-card-title"><span>✅</span> Application Checklist</div>
+      <ul class="apply-list">
+        <li>Resume tailored to each JD (swap skill order to match their keywords)</li>
+        <li>Cover letter: 3 paragraphs — why them, what you bring, call to action</li>
+        <li>GitHub has at least 3 pinned projects with good READMEs</li>
+        <li>LinkedIn profile 100% complete with profile photo</li>
+        <li>Apply to 10–15 jobs per day during active search</li>
+        <li>Track all applications in a spreadsheet (company, date, status, follow-up)</li>
+        <li>Prepare 3 project stories using STAR method</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label" style="margin-bottom:16px;">// Where to Apply</div>
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="platform-name">Internshala</div>
+      <div class="platform-type">Internships · India</div>
+      <div class="platform-desc">Your primary platform. Filter: Data Analytics, Business Analytics, 1–3 months, Nagpur + Remote.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">LinkedIn Jobs</div>
+      <div class="platform-type">Full-time + Intern</div>
+      <div class="platform-desc">Set up job alerts for "Data Analyst Intern", "Business Analyst Fresher" in India. Easy Apply.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">Naukri.com</div>
+      <div class="platform-type">Jobs · India</div>
+      <div class="platform-desc">Massive database. Upload resume, set profile to "Actively looking". Use for full-time + contract.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">Indeed India</div>
+      <div class="platform-type">Jobs · India</div>
+      <div class="platform-desc">Good for SME companies. Search "Data Analyst fresher Nagpur" and set email alerts.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">AngelList (Wellfound)</div>
+      <div class="platform-type">Startups</div>
+      <div class="platform-desc">Apply to analytics roles at Indian startups. Companies often have informal hiring processes.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">Hirist / Cutshort</div>
+      <div class="platform-type">Tech Jobs · India</div>
+      <div class="platform-desc">Tech-focused platforms. Good for data + analytics roles at product companies.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">Kaggle</div>
+      <div class="platform-type">Community + Jobs</div>
+      <div class="platform-desc">Portfolio competitions + some job listings. Having a Kaggle profile impresses recruiters.</div>
+    </div>
+    <div class="platform-card">
+      <div class="platform-name">Direct Company Sites</div>
+      <div class="platform-type">Career Pages</div>
+      <div class="platform-desc">Target: TCS, Infosys, Wipro, Hexaware, Mu Sigma, Fractal Analytics, Tiger Analytics.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TIMELINE SECTION
+════════════════════════════════════════════ -->
+<section id="sec-timeline" class="section">
+  <div class="section-header">
+    <div class="section-label">// Study Plan</div>
+    <h2 class="section-title">Your <span>Month-by-Month</span> Plan</h2>
+    <p class="section-desc">A realistic 4–5 month plan from zero to job-ready. Adjust based on your current skill level.</p>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Yash's Fast Track:</strong> Since you already have Excel + Python basics, you can compress Month 1 to 2 weeks and spend more time on SQL (Month 2) and portfolio (Month 3). Your June internship target is very achievable.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-month">Month 1</div>
+      <div class="tl-title">Foundations — Stats, Excel Mastery & SQL Start</div>
+      <div class="tl-items">
+        <span class="tl-tag">Statistics basics</span>
+        <span class="tl-tag">Excel advanced</span>
+        <span class="tl-tag">SQL SELECT to JOINs</span>
+        <span class="tl-tag">First Kaggle dataset EDA</span>
+        <span class="tl-tag">Set up GitHub</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-month">Month 2</div>
+      <div class="tl-title">SQL Deep Dive + Python for Data Analysis</div>
+      <div class="tl-items">
+        <span class="tl-tag">SQL window functions</span>
+        <span class="tl-tag">CTEs & subqueries</span>
+        <span class="tl-tag">Pandas & Matplotlib</span>
+        <span class="tl-tag">Project 1: Excel Dashboard</span>
+        <span class="tl-tag">Project 2: Python EDA</span>
+        <span class="tl-tag">LeetCode SQL (Easy × 20)</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-month">Month 3</div>
+      <div class="tl-title">Visualization + Business Analytics</div>
+      <div class="tl-items">
+        <span class="tl-tag">Power BI full course</span>
+        <span class="tl-tag">Tableau basics</span>
+        <span class="tl-tag">KPIs & business metrics</span>
+        <span class="tl-tag">Project 3: SQL BI Analysis</span>
+        <span class="tl-tag">Project 4: Energy Analytics</span>
+        <span class="tl-tag">Start applying on Internshala</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-month">Month 4</div>
+      <div class="tl-title">Portfolio + Interview Prep + Active Job Hunt</div>
+      <div class="tl-items">
+        <span class="tl-tag">Project 5: End-to-end case study</span>
+        <span class="tl-tag">GitHub portfolio polished</span>
+        <span class="tl-tag">LinkedIn optimized</span>
+        <span class="tl-tag">Resume finalized</span>
+        <span class="tl-tag">Apply 10+ jobs/day</span>
+        <span class="tl-tag">30 SQL interview questions</span>
+        <span class="tl-tag">Mock interviews</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-month">Month 5+</div>
+      <div class="tl-title">Interviews, Offers & Negotiation</div>
+      <div class="tl-items">
+        <span class="tl-tag">Screening calls</span>
+        <span class="tl-tag">Technical rounds</span>
+        <span class="tl-tag">Case study rounds</span>
+        <span class="tl-tag">HR rounds</span>
+        <span class="tl-tag">Salary negotiation</span>
+        <span class="tl-tag">Offer acceptance</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="highlight-box">
+    <strong>Daily Habit:</strong> 2 hours study + 10 job applications + 1 LeetCode SQL problem. Consistency beats intensity. 90 days of this = job offer.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SALARY SECTION
+════════════════════════════════════════════ -->
+<section id="sec-salary" class="section">
+  <div class="section-header">
+    <div class="section-label">// Know Your Worth</div>
+    <h2 class="section-title">Data Analyst <span>Salary Guide</span> — India</h2>
+    <p class="section-desc">2024–25 market rates. Use these when negotiating offers.</p>
+  </div>
+
+  <div class="salary-grid">
+    <div class="salary-card">
+      <div class="salary-role">Intern / Trainee</div>
+      <div class="salary-exp">0 exp · 1–3 months</div>
+      <div class="salary-amount">₹5K–25K</div>
+      <div class="salary-unit">per month stipend</div>
+    </div>
+    <div class="salary-card">
+      <div class="salary-role">Junior Data Analyst</div>
+      <div class="salary-exp">0–1 year</div>
+      <div class="salary-amount">₹3–6 LPA</div>
+      <div class="salary-unit">annual (₹25–50K/mo)</div>
+    </div>
+    <div class="salary-card">
+      <div class="salary-role">Data Analyst</div>
+      <div class="salary-exp">1–3 years</div>
+      <div class="salary-amount">₹6–12 LPA</div>
+      <div class="salary-unit">annual</div>
+    </div>
+    <div class="salary-card">
+      <div class="salary-role">Senior Data Analyst</div>
+      <div class="salary-exp">3–6 years</div>
+      <div class="salary-amount">₹12–22 LPA</div>
+      <div class="salary-unit">annual</div>
+    </div>
+    <div class="salary-card">
+      <div class="salary-role">Analytics Manager</div>
+      <div class="salary-exp">6+ years</div>
+      <div class="salary-amount">₹22–40 LPA</div>
+      <div class="salary-unit">annual</div>
+    </div>
+    <div class="salary-card">
+      <div class="salary-role">MNC / FAANG Analyst</div>
+      <div class="salary-exp">2–4 years</div>
+      <div class="salary-amount">₹20–50 LPA</div>
+      <div class="salary-unit">annual + equity</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label" style="margin-bottom:16px;">// Career Growth Paths</div>
+  <div class="two-col">
+    <div class="apply-card">
+      <div class="apply-card-title"><span>📈</span> Upward Path</div>
+      <ul class="apply-list">
+        <li>Data Analyst → Senior Analyst → Analytics Manager → Head of Analytics</li>
+        <li>Data Analyst → Business Intelligence Engineer → Data Engineer</li>
+        <li>Data Analyst → Data Scientist (with ML skills added)</li>
+        <li>Business Analyst → Product Analyst → Product Manager</li>
+      </ul>
+    </div>
+    <div class="apply-card">
+      <div class="apply-card-title"><span>🎯</span> High-Paying Industries</div>
+      <ul class="apply-list">
+        <li>FinTech / BFSI — highest paying for DA in India</li>
+        <li>E-commerce (Flipkart, Amazon, Meesho)</li>
+        <li>Consulting (Deloitte, EY, KPMG analytics teams)</li>
+        <li>Healthcare Analytics — growing fast</li>
+        <li>Industrial Analytics (IIoT) — your unique advantage!</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrapper -->
+
+<script>
+// ── Section navigation ──
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Phase accordion ──
+function togglePhase(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// ── Topic checklist ──
+let checked = JSON.parse(localStorage.getItem('da_topics') || '{}');
+const TOTAL_TOPICS = document.querySelectorAll('.topic-item').length;
+
+function toggleTopic(el) {
+  const id = el.dataset.id;
+  checked[id] = !checked[id];
+  el.classList.toggle('done', checked[id]);
+  localStorage.setItem('da_topics', JSON.stringify(checked));
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = Object.values(checked).filter(Boolean).length;
+  const pct = Math.round((done / TOTAL_TOPICS) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// Restore state
+document.querySelectorAll('.topic-item').forEach(el => {
+  if (checked[el.dataset.id]) el.classList.add('done');
+});
+updateProgress();
+
+// ── QA accordion ──
+function toggleQA(el) {
+  const card = el.closest('.qa-card');
+  card.classList.toggle('open');
+}
+
+// ── Interview filter ──
+function filterQA(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.qa-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
